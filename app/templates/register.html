@@ -1,0 +1,35 @@
+{% from "render_field.html" import render_field %}
+{% extends "home.html" %}
+
+{% block head %}{% endblock  %}
+
+{% block body %}
+    <h1>Register</h1>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form method="POST"> 
+                {{ form.csrf_token }}
+                {{ render_field(form.username) }}
+                {{ render_field(form.email) }}
+                {{ render_field(form.password) }}
+                {{ render_field(form.confirmpassword) }}
+
+                <p>
+                    {{ form.submit() }}
+                </p>
+            </form>
+        </div>
+     </div>
+     <script type="text/javascript">
+        var csrf_token = "{{ csrf_token() }}";
+    
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                }
+            }
+        });
+    </script>
+     
+{% endblock  %}
