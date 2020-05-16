@@ -1,15 +1,15 @@
-from flask import render_template,request,session,redirect,url_for,flash
-from app import app
+from flask import Flask,render_template,request,session,redirect,url_for,flash
 from flask_mail import Mail,Message
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_wtf.csrf import CSRFProtect,CSRFError
-from .form import LogInForm,SignUpForm,ForgotPasswordForm,ResetPasswordForm
-from .models import User
+from form import LogInForm,SignUpForm,ForgotPasswordForm,ResetPasswordForm
+from models import User
 from flask_wtf.csrf import CSRFProtect, CSRFError
 from itsdangerous import URLSafeTimedSerializer,SignatureExpired
 import os
 from sqlalchemy.exc import IntegrityError
 
+app = Flask(__name__)
 
 url_serializer = URLSafeTimedSerializer(os.environ.get('secret_key'))
 app.config.update(dict(
@@ -141,4 +141,4 @@ def resetpassword(token):
 
 
 if __name__ == '__main__':
-   app.run(debug=True,host="0.0.0.0")
+   app.run(debug=True,host='0.0.0.0')

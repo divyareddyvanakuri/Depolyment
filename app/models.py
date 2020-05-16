@@ -1,6 +1,6 @@
 from sqlalchemy import Table, Column, Integer, String, Boolean,ForeignKey
 from sqlalchemy.orm import mapper,relationship,backref
-from .database import metadata, db_session 
+from database import metadata, db_session 
 
 class User(object):
     query = db_session.query_property()
