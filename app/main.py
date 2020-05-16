@@ -11,6 +11,9 @@ import os
 from sqlalchemy.exc import IntegrityError
 
 print("secret:",os.environ.get('secret_key'))
+print("email",os.environ.get('email_username'))
+print("email_password",os.environ.get('email_password'))
+
 
 url_serializer = URLSafeTimedSerializer(os.environ.get('secret_key'))
 app.config.update(dict(
@@ -25,9 +28,9 @@ app.config.update(
    MAIL_PORT=465,
    MAIL_USE_SSL=True,
    MAIL_USE_TLS = False,
-   MAIL_USERNAME = os.environ.get('mail'),
-   MAIL_PASSWORD = os.environ.get('mail_password'),
-   MAIL_DEFAULT_SENDER = os.environ.get('mail'),
+   MAIL_USERNAME = os.environ.get('email_username'),
+   MAIL_PASSWORD = os.environ.get('email_password'),
+   MAIL_DEFAULT_SENDER = os.environ.get('email_username'),
 	)
 
 mail = Mail(app)
@@ -80,7 +83,7 @@ def register():
             user.rollBack()
             return "duplicate user details,please confirm once again with user details"
       token = url_serializer.dumps(email,salt='email-confirm')
-      msg = Message('Activate',sender='divyavanakuri48@gmail.com',recipients=[email])
+      msg = Message('Activate',sender='divyavanakuri1234@gmail.com',recipients=[email])
       link = url_for('activate',token=token,_external=True)
       msg.body = render_template("activate.html",link=link,email=email)
       print(msg)
@@ -110,7 +113,7 @@ def forgotpassword():
    if request.method == "POST":
       email = request.form["email"]
       token = url_serializer.dumps(email,salt='email-confirm')
-      msg = Message('ResetPassword',sender='divyavanakuri48@gmail.com',recipients=[email])
+      msg = Message('ResetPassword',sender='divyavanakuri1234@gmail.com',recipients=[email])
       link = url_for('resetpassword',token=token,_external=True)
       msg.body = render_template("sent.html",link=link,email=email)
       print(msg)
