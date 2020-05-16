@@ -10,10 +10,6 @@ from itsdangerous import URLSafeTimedSerializer,SignatureExpired
 import os
 from sqlalchemy.exc import IntegrityError
 
-print("secret:",os.environ.get('secret_key'))
-print("email",os.environ.get('email_username'))
-print("email_password",os.environ.get('email_password'))
-
 
 url_serializer = URLSafeTimedSerializer(os.environ.get('secret_key'))
 app.config.update(dict(
