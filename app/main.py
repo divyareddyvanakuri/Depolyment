@@ -87,6 +87,7 @@ def register():
       return "registeration done successfully,please activate account through mailed link"
    return render_template("register.html",form=form)
 
+
 @app.route('/activate/<token>',methods=["GET","POST"])
 def activate(token):
    try:
