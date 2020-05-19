@@ -62,6 +62,7 @@ def logout():
    session.clear()
    return render_template("home.html")
 
+
 @app.route('/register',methods=["GET","POST"])
 @csrf.exempt
 def register():
