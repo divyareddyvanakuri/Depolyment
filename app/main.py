@@ -38,6 +38,8 @@ def home():
 
 @app.route('/login',methods=["GET","POST"])
 def login():
+   if session.get("username"):
+      return render_template("home.html")
    form = LogInForm()
    if form.validate_on_submit():
       username = form.username.data
@@ -51,9 +53,8 @@ def login():
                return render_template("home.html")
             else:
                return "please active account before login"
-      except UnicodeError as err:
-         flash("somthing went wrong:",err)
-
+      except (UnicodeError,AttributeError) as err:
+        return "somthing went wrong,please check and submit agian the login credentials"
    return render_template("login.html",form=form)
 
 @app.route("/logout")
@@ -65,6 +66,8 @@ def logout():
 @csrf.exempt
 def register():
    form=SignUpForm()
+   if session.get("username"):
+      return render_template("home.html")
    if form.validate_on_submit():
       username = form.username.data
       email = form.email.data
@@ -85,6 +88,7 @@ def register():
       print(msg)
       mail.send(msg)
       return "registeration done successfully,please activate account through mailed link"
+   
    return render_template("register.html",form=form)
 
 
